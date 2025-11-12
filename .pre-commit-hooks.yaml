@@ -2,7 +2,8 @@
   name: Terraform Variable Drift Checker
   description: Detects unused/missing/mismatched Terraform variables
   entry: terraform_variable_drift.py
-  language: system
+  language: python
+  language_version: python3
   additional_dependencies:
     - python-hcl2==7.3.1
   files: \.tf$|\.tfvars$|\.tfvars\.json$
