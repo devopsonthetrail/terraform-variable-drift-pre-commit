@@ -42,7 +42,7 @@ def parse_declared_vars_from_tf(path) -> set:
         log(f"⚠️  Failed to parse {path} with hcl2 ({e}); using regex fallback.")
         with open(path, "r", encoding="utf-8") as f:
             txt = f.read()
-        declared.update(re.findall(r'variable\s+"([A-Za-z0-9_]+)"\s*{', txt))
+        declared.update(re.findall(r'variable\s+"([\w\-]+)"\s*{', txt))
         return declared
 
     blocks = []
@@ -138,11 +138,19 @@ def main():
         return 0
 
     if unused:
-        print(f"\n⚠️  Declared but not used: {unused}")
+        print("\n⚠️  Declared but not used:")
+        for var in sorted(unused):
+            print(f"   • {var}")
+
     if missing:
-        print(f"\n❌ Used in code but not declared (check module boundaries or ignore list): {missing}")
+        print("\n❌ Used in code but not declared (check module boundaries or ignore list):")
+        for var in sorted(missing):
+            print(f"   • {var}")
+
     if tfvars_extra:
-        print(f"\n⚠️  Present in tfvars but not declared: {tfvars_extra}")
+        print("\n⚠️  Present in tfvars but not declared:")
+        for var in sorted(tfvars_extra):
+            print(f"   • {var}")
 
     print("\n💡 Tip: add acceptable cross-module vars to .tfdriftignore (one per line).")
     return 1
