@@ -1,7 +1,7 @@
 - id: terraform-variable-drift
   name: Terraform Variable Drift Checker
   description: Detects unused/missing/mismatched Terraform variables
-  entry: terraform_variable_drift.py
+  entry: python terraform_variable_drift.py
   language: python
   language_version: python3
   additional_dependencies:
