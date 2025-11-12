@@ -63,19 +63,15 @@ def parse_used_vars_from_tf(path) -> set:
     with open(path, "r", encoding="utf-8") as f:
         txt = f.read()
     used = set(VAR_REF_RE.findall(txt))
-    if used:
-        log(f"🔍 Found used vars in {path}: {sorted(used)}")
     return used
 
 def parse_tfvars(path) -> set:
-    log(f"📦 Parsing tfvars: {path}")
     if path.endswith(".json"):
         try:
             with open(path, "r", encoding="utf-8") as f:
                 obj = json.load(f)
             if isinstance(obj, dict):
                 keys = set(obj.keys())
-                log(f"✅ Keys found in {path}: {sorted(keys)}")
                 return keys
         except Exception as e:
             log(f"⚠️  Could not parse {path}: {e}")
@@ -85,7 +81,6 @@ def parse_tfvars(path) -> set:
             data = hcl_load(path)
             if isinstance(data, dict):
                 keys = set(data.keys())
-                log(f"✅ Keys found in {path}: {sorted(keys)}")
                 return keys
         except Exception as e:
             log(f"⚠️  Could not parse {path}: {e}")
