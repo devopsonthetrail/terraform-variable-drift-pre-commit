@@ -1,6 +1,6 @@
 # Terraform Variable Drift (pre-commit hook)
 
-## How to use
+## How to install
 Add to your `.pre-commit-config.yaml`:
 ```yaml
 - repo: https://github.com/devopsonthetrail/terraform-variable-drift-pre-commit
